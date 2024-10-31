@@ -1,0 +1,41 @@
+ubuntu@nd-vm-fx3-1-1-11:~$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: ens192: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 00:50:56:b7:8e:35 brd ff:ff:ff:ff:ff:ff
+    inet 10.71.157.41/24 brd 10.71.157.255 scope global dynamic ens192
+       valid_lft 85756sec preferred_lft 85756sec
+    inet6 2001:db8:157:0:250:56ff:feb7:8e35/64 scope global dynamic mngtmpaddr noprefixroute
+       valid_lft 2591864sec preferred_lft 604664sec
+    inet6 fe80::250:56ff:feb7:8e35/64 scope link
+       valid_lft forever preferred_lft forever
+3: ens224: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 00:50:56:b7:d5:3c brd ff:ff:ff:ff:ff:ff
+    inet 192.168.101.1/24 brd 192.168.101.255 scope global ens224
+       valid_lft forever preferred_lft forever
+    inet6 fe80::250:56ff:feb7:d53c/64 scope link
+       valid_lft forever preferred_lft forever
+4: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default
+    link/ether 02:42:f2:f4:3e:88 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+       valid_lft forever preferred_lft forever
+ubuntu@nd-vm-fx3-1-1-11:~$
+ubuntu@nd-vm-fx3-1-1-11:~$
+ubuntu@nd-vm-fx3-1-1-11:~$ ping 192.168.101.254
+PING 192.168.101.254 (192.168.101.254) 56(84) bytes of data.
+64 bytes from 192.168.101.254: icmp_seq=1 ttl=255 time=0.972 ms
+64 bytes from 192.168.101.254: icmp_seq=2 ttl=255 time=0.550 ms
+64 bytes from 192.168.101.254: icmp_seq=3 ttl=255 time=0.667 ms
+^C
+--- 192.168.101.254 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2008ms
+rtt min/avg/max/mdev = 0.550/0.729/0.972/0.177 ms
+ubuntu@nd-vm-fx3-1-1-11:~$ ping 192.168.100.1
+PING 192.168.100.1 (192.168.100.1) 56(84) bytes of data.
+^C
+--- 192.168.100.1 ping statistics ---
+4 packets transmitted, 0 received, 100% packet loss, time 3061ms

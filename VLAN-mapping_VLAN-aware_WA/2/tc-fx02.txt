@@ -1,0 +1,293 @@
+tc-fx02# sh run
+
+!Command: show running-config
+!Running configuration last done at: Wed Oct 30 09:08:08 2024
+!Time: Wed Oct 30 09:19:42 2024
+
+version 10.5(1) Bios:version 05.51
+hostname tc-fx02
+vdc tc-fx02 id 1
+  limit-resource vlan minimum 16 maximum 4094
+  limit-resource vrf minimum 2 maximum 4096
+  limit-resource port-channel minimum 0 maximum 511
+  limit-resource m4route-mem minimum 58 maximum 58
+  limit-resource m6route-mem minimum 8 maximum 8
+
+nv overlay evpn
+feature ospf
+feature bgp
+
+username admin password 5 $5$ELHLAD$e25yqnoDdn4n9QGTzMHou0jcHEU.2PCFlp
+mbJsUMr60  role network-admin
+ip domain-lookup
+copp profile strict
+snmp-server user admin network-admin auth md5 175900616A0FE1119308EA0A
+828427CC56EB priv aes-128 00705C090DDC689925933CDF0357E54AD173 localiz
+edV2key
+rmon event 1 log trap public description FATAL(1) owner PMON@FATAL
+rmon event 2 log trap public description CRITICAL(2) owner PMON@CRITIC
+AL
+rmon event 3 log trap public description ERROR(3) owner PMON@ERROR
+rmon event 4 log trap public description WARNING(4) owner PMON@WARNING
+rmon event 5 log trap public description INFORMATION(5) owner PMON@INF
+O
+
+vlan 1
+
+vrf context management
+  ip route 0.0.0.0/0 172.16.50.254
+
+interface Ethernet1/1
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/2
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/3
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/4
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/5
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/6
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/7
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/8
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/9
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/10
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/11
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/12
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/13
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/14
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/15
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/16
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/17
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/18
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/19
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/20
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/21
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/22
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/23
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/24
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/25
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/26
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/27
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/28
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/29
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/30
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/31
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/32
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/33
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/34
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/35
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/36
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/37
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/38
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/39
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/40
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/41
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/42
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/43
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/44
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/45
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/46
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/47
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/48
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/49
+  mtu 9216
+  ip address 192.168.1.2/30
+  ip ospf network point-to-point
+  ip router ospf 100 area 0.0.0.0
+  no shutdown
+
+interface Ethernet1/50
+  mtu 9216
+  ip address 192.168.2.2/30
+  ip ospf network point-to-point
+  ip router ospf 100 area 0.0.0.0
+  no shutdown
+
+interface Ethernet1/51
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/52
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/53
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/54
+  mtu 9216
+  no shutdown
+
+interface mgmt0
+  vrf member management
+  ip address 172.16.50.152/24
+
+interface loopback0
+  ip address 9.9.9.9/32
+  ip router ospf 100 area 0.0.0.0
+icam monitor scale
+
+line console
+line vty
+boot nxos bootflash:/nxos64-cs.10.5.1.F.bin
+router ospf 100
+  router-id 9.9.9.9
+router bgp 65001
+  address-family l2vpn evpn
+  neighbor 1.1.1.1
+    remote-as 65001
+    update-source loopback0
+    address-family l2vpn evpn
+      send-community
+      send-community extended
+      route-reflector-client
+  neighbor 2.2.2.2
+    remote-as 65001
+    update-source loopback0
+    address-family l2vpn evpn
+      send-community
+      send-community extended
+      route-reflector-client
+
+

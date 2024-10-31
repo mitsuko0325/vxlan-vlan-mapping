@@ -1,0 +1,407 @@
+fx3-1# sh run
+
+!Command: show running-config
+!Running configuration last done at: Wed Oct 30 09:00:52 2024
+!Time: Wed Oct 30 09:18:03 2024
+
+version 10.5(1) Bios:version 01.09
+hostname fx3-1
+vdc fx3-1 id 1
+  limit-resource vlan minimum 16 maximum 4094
+  limit-resource vrf minimum 2 maximum 4096
+  limit-resource port-channel minimum 0 maximum 511
+  limit-resource m4route-mem minimum 58 maximum 58
+  limit-resource m6route-mem minimum 8 maximum 8
+
+nv overlay evpn
+feature ospf
+feature bgp
+feature interface-vlan
+feature vn-segment-vlan-based
+feature nv overlay
+
+username admin password 5 $5$NPAOJG$emVq1kx4wtLl1IxWevx0ZJaGBaseXEafrF
+hENpYA850  role network-admin
+ip domain-lookup
+copp profile strict
+snmp-server user admin network-admin auth md5 005121B450DD58970FDD1032
+731584FC944E priv aes-128 331959D56E14D700D062CCE7E4941F2B4987 localiz
+edV2key
+rmon event 1 log trap public description FATAL(1) owner PMON@FATAL
+rmon event 2 log trap public description CRITICAL(2) owner PMON@CRITIC
+AL
+rmon event 3 log trap public description ERROR(3) owner PMON@ERROR
+rmon event 4 log trap public description WARNING(4) owner PMON@WARNING
+rmon event 5 log trap public description INFORMATION(5) owner PMON@INF
+O
+
+fabric forwarding anycast-gateway-mac 0000.2222.3333
+vlan 1,1000-1001,3000-3001
+vlan 1000
+  vn-segment 100100
+vlan 1001
+  vn-segment 100101
+vlan 3000
+  vn-segment 100300
+vlan 3001
+  vn-segment 100301
+
+vrf context management
+  ip route 0.0.0.0/0 172.16.50.254
+vrf context tenant-100300
+  vni 100300
+  rd auto
+  address-family ipv4 unicast
+    route-target both auto
+    route-target both auto evpn
+vrf context tenant-100301
+  vni 100301
+  rd auto
+  address-family ipv4 unicast
+    route-target both auto
+    route-target both auto evpn
+
+interface Vlan1
+
+interface Vlan1000
+  no shutdown
+  mtu 9216
+  vrf member tenant-100300
+  ip address 192.168.100.254/24
+  fabric forwarding mode anycast-gateway
+
+interface Vlan1001
+  no shutdown
+  mtu 9216
+  vrf member tenant-100301
+  ip address 192.168.101.254/24
+  fabric forwarding mode anycast-gateway
+
+interface Vlan3000
+  no shutdown
+  mtu 9216
+  vrf member tenant-100300
+  ip forward
+
+interface Vlan3001
+  no shutdown
+  mtu 9216
+  vrf member tenant-100301
+  ip forward
+
+interface nve1
+  no shutdown
+  host-reachability protocol bgp
+  source-interface loopback1
+  member vni 100100
+    ingress-replication protocol bgp
+  member vni 100101
+    ingress-replication protocol bgp
+  member vni 100300 associate-vrf
+  member vni 100301 associate-vrf
+
+interface Ethernet1/1
+  switchport
+  switchport mode trunk
+  switchport vlan mapping enable
+  switchport vlan mapping 100 1000
+  switchport trunk allowed vlan 1000
+  no shutdown
+
+interface Ethernet1/2
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/3
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/4
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/5
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/6
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/7
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/8
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/9
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/10
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/11
+  switchport
+  switchport mode trunk
+  switchport vlan mapping enable
+  switchport vlan mapping 100 1001
+  switchport trunk allowed vlan 1001
+  no shutdown
+
+interface Ethernet1/12
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/13
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/14
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/15
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/16
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/17
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/18
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/19
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/20
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/21
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/22
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/23
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/24
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/25
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/26
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/27
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/28
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/29
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/30
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/31
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/32
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/33
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/34
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/35
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/36
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/37
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/38
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/39
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/40
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/41
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/42
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/43
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/44
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/45
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/46
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/47
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/48
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/49
+  mtu 9216
+  ip address 192.168.1.1/30
+  ip ospf network point-to-point
+  ip router ospf 100 area 0.0.0.0
+  no shutdown
+
+interface Ethernet1/50
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/51
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/52
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/53
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/54
+  mtu 9216
+  no shutdown
+
+interface mgmt0
+  vrf member management
+  ip address 172.16.50.150/24
+
+interface loopback0
+  ip address 1.1.1.1/32
+  ip router ospf 100 area 0.0.0.0
+
+interface loopback1
+  ip address 11.11.11.11/32
+  ip router ospf 100 area 0.0.0.0
+icam monitor scale
+
+line console
+line vty
+boot nxos bootflash:/nxos64-cs.10.5.1.F.bin
+router ospf 100
+  router-id 1.1.1.1
+router bgp 65001
+  neighbor 9.9.9.9
+    remote-as 65001
+    update-source loopback0
+    address-family l2vpn evpn
+      send-community
+      send-community extended
+evpn
+  vni 100100 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 100101 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+
+
+
+fx3-1(config)# sh bgp l2vpn evpn
+BGP routing table information for VRF default, address family L2VPN EVPN
+BGP table version is 15, Local Router ID is 1.1.1.1
+Status: s-suppressed, x-deleted, S-stale, d-dampened, h-history, *-valid, >-best
+Path type: i-internal, e-external, c-confed, l-local, a-aggregate, r-redist, I-injected
+Origin codes: i - IGP, e - EGP, ? - incomplete, | - multipath, & - backup, 2 - best2
+
+   Network            Next Hop            Metric     LocPrf     Weight Path
+Route Distinguisher: 1.1.1.1:33767    (L2VNI 100100)
+*>l[2]:[0]:[0]:[48]:[0050.56b7.57d4]:[0]:[0.0.0.0]/216
+                      11.11.11.11                       100      32768 i
+*>i[2]:[0]:[0]:[48]:[0050.56b7.962b]:[0]:[0.0.0.0]/216
+                      22.22.22.22                       100          0 i
+*>l[2]:[0]:[0]:[48]:[0050.56b7.57d4]:[32]:[192.168.100.1]/272
+                      11.11.11.11                       100      32768 i
+*>i[2]:[0]:[0]:[48]:[0050.56b7.962b]:[32]:[192.168.100.2]/272
+                      22.22.22.22                       100          0 i
+*>l[3]:[0]:[32]:[11.11.11.11]/88
+                      11.11.11.11                       100      32768 i
+*>i[3]:[0]:[32]:[22.22.22.22]/88
+                      22.22.22.22                       100          0 i
+
+Route Distinguisher: 1.1.1.1:33768    (L2VNI 100101)
+*>l[2]:[0]:[0]:[48]:[0050.56b7.d53c]:[0]:[0.0.0.0]/216
+                      11.11.11.11                       100      32768 i
+*>l[2]:[0]:[0]:[48]:[0050.56b7.d53c]:[32]:[192.168.101.1]/272
+                      11.11.11.11                       100      32768 i
+*>l[3]:[0]:[32]:[11.11.11.11]/88
+                      11.11.11.11                       100      32768 i
+
+Route Distinguisher: 2.2.2.2:33767
+*>i[2]:[0]:[0]:[48]:[0050.56b7.962b]:[0]:[0.0.0.0]/216
+                      22.22.22.22                       100          0 i
+*>i[2]:[0]:[0]:[48]:[0050.56b7.962b]:[32]:[192.168.100.2]/272
+                      22.22.22.22                       100          0 i
+*>i[3]:[0]:[32]:[22.22.22.22]/88
+                      22.22.22.22                       100          0 i
+
+Route Distinguisher: 1.1.1.1:4    (L3VNI 100300)
+*>i[2]:[0]:[0]:[48]:[0050.56b7.962b]:[32]:[192.168.100.2]/272
+                      22.22.22.22
